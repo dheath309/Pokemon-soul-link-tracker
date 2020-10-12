@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nickname: MyString
+  pokedex_id: 1
+  is_alive: false
+  team: one
+
+two:
+  nickname: MyString
+  pokedex_id: 1
+  is_alive: false
+  team: two
