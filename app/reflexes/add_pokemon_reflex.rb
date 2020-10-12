@@ -23,10 +23,12 @@ class AddPokemonReflex < ApplicationReflex
   # Learn more at: https://docs.stimulusreflex.com
 
   def add
-    @game = Game.order("created_at DESC").first
-    @team = @game.teams.first
     # If getting team id from the webpage, need to do some authentication (websocket connected to game id thing? session? (session may persist too long))
     # so that users can't just add to random teams by changing the id. (uuid id?)
+    team_id = element.dataset[:team].to_i
+    @team = Team.find(team_id)
+    # @team = @game.teams.find(team_id) # This would disallow people editing other teams outside their game (I think). Store game id in session?
+    # TODO Some sort of form for this really
     @pokemon = @team.pokemons.create
     @pokemon.nickname = "Abbb"
     @pokemon.pokedex_id = 15
