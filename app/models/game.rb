@@ -1,6 +1,7 @@
 class Game < ApplicationRecord
   validates :room_id, length: { in: 7..20 }, format: { with: /\A[A-Za-z0-9_]{7,}\z/, message: "only allows A-Z a-z 0-9" }
   before_create :create_slug
+  has_many :teams
 
 
   private
