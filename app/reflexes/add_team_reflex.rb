@@ -26,7 +26,19 @@ class AddTeamReflex < ApplicationReflex
     # Get room id for game (url? channel?)
     # Add team to game
     @game = Game.order("created_at DESC").first
-    @game.teams.create
+    @team = @game.teams.create
+    # TODO Need to keep track of amount of pokemon added so that when adding a new team, it is the same amount as the others. Should probably keep track of in Game
+    pokemon_count = @game.teams.first.pokemons.count
+    
+    for i in 0..pokemon_count
+      if @team.pokemons.count < 6
+        @pokemon = @team.pokemons.create
+        @pokemon.nickname = "Bulbasaur"
+        @pokemon.pokedex_id = 1
+        @pokemon.save
+      end
+    end
+
   end
 
 end
