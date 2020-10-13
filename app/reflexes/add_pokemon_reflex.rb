@@ -32,10 +32,12 @@ class AddPokemonReflex < ApplicationReflex
     @game = Game.order("created_at DESC").first
 
     for team in @game.teams
+      if team.pokemons.count < 6
         @pokemon = team.pokemons.create
         @pokemon.nickname = "Bulbasaur"
         @pokemon.pokedex_id = 1
         @pokemon.save
+      end
     end
   end
 
