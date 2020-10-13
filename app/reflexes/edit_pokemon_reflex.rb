@@ -8,6 +8,13 @@ class EditPokemonReflex < ApplicationReflex
     @pokemon = Pokemon.find(pokemon_id)
     @pokemon.update(nickname: name)
   end
+
+  def edit_pokedex_id(id)
+    pokemon_id = element.dataset[:id].to_i
+    # TODO some auth or something for this
+    @pokemon = Pokemon.find(pokemon_id)
+    @pokemon.update(pokedex_id: id)
+  end
   # Add Reflex methods in this file.
   #
   # All Reflex instances expose the following properties:

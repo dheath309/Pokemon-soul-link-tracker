@@ -1,7 +1,7 @@
 <div class="pokemon-container">
   <% for pokemon in pokemons do %>
     <div class="pokemon">
-      <label for="pokedex-id">Pokedex id: </label><input type=text name="pokedex-id" value="<%= pokemon.pokedex_id %>"></input>
+      <label for="pokedex-id">Pokedex id: </label><input data-controller="edit-pokemon" data-action="keypress->edit-pokemon#editPokedexId" data-id="<%= pokemon.id %>" type=number name="pokedex-id" value="<%= pokemon.pokedex_id %>"></input>
       <label for="pokedex-nickname">Pokemon nickname: </label><input data-controller="edit-pokemon" data-action="keypress->edit-pokemon#edit" data-id="<%= pokemon.id %>" type=text name="pokedex-nickname" value="<%= pokemon.nickname %>"></input>
     </div>
   <% end %>

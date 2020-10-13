@@ -27,6 +27,13 @@ export default class extends ApplicationController {
 			this.stimulate("Edit_Pokemon#edit", newName);
 		}
 	}
+
+	editPokedexId(event) {
+		if (event.code === "Enter") {
+			const newId = this.context.scope.element.value;
+			this.stimulate("Edit_Pokemon#edit_pokedex_id", newId);
+		}
+	}
   /* Reflex specific lifecycle methods.
    *
    * For every method defined in your Reflex class, a matching set of lifecycle methods become available
