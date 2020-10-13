@@ -29,10 +29,14 @@ class AddPokemonReflex < ApplicationReflex
     @team = Team.find(team_id)
     # @team = @game.teams.find(team_id) # This would disallow people editing other teams outside their game (I think). Store game id in session?
     # TODO Some sort of form for this really
-    @pokemon = @team.pokemons.create
-    @pokemon.nickname = "Abbb"
-    @pokemon.pokedex_id = 15
-    @pokemon.save
+    @game = Game.order("created_at DESC").first
 
+    for team in @game.teams
+        @pokemon = team.pokemons.create
+        @pokemon.nickname = "Bulbasaur"
+        @pokemon.pokedex_id = 1
+        @pokemon.save
+    end
   end
+
 end
