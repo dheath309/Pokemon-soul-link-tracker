@@ -1,24 +1,15 @@
 <button data-controller="add-team" data-action="add-team#add">Add player</button>
 
 <%= @game.inspect %>
-<%= @game.teams.inspect %>
-Total teams: <%= @game.teams.count %>
 
 <div class="teams-container">
   <% for team in @game.teams do %>
     <div class="team">
       Team <%= team.id %>
-      <div class="pokemon-container">
-        <% for pokemon in team.pokemons do %>
-          <div class="pokemon">
-            <p>Pokemon <%= pokemon.pokedex_id %></p>
-            <p>Nickname <%= pokemon.nickname %></p>
-          </div>
-        <% end %>
-        <% if team.pokemons.count < 6 %>
-          <button data-controller="add-pokemon" data-action="add-pokemon#add" data-team="<%= team.id %>">Add pokemon</button>
-        <% end %>
-      </div>
+      <%= render "pokemons", pokemons: team.pokemons %>
+      <% if team.pokemons.count < 6 %>
+        <button data-controller="add-pokemon" data-action="add-pokemon#add" data-team="<%= team.id %>">Add pokemon</button>
+      <% end %>
     </div>
   <% end %>
 </div>
