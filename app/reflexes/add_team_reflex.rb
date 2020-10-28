@@ -23,8 +23,10 @@ class AddTeamReflex < ApplicationReflex
   # Learn more at: https://docs.stimulusreflex.com
 
   def add
+    puts("ADDING TEAM NOW")
     # Get room id for game (url? channel?)
     # Add team to game
+    # TODO get game/room id from the stimulus controller or something
     @game = Game.order("created_at DESC").first
     @team = @game.teams.create
     # TODO Need to keep track of amount of pokemon added so that when adding a new team, it is the same amount as the others. Should probably keep track of in Game
@@ -35,7 +37,7 @@ class AddTeamReflex < ApplicationReflex
         @pokemon = @team.pokemons.create
         @pokemon.nickname = "Bulbasaur"
         @pokemon.pokedex_id = 1
-        @pokemon.save
+        puts("Saved? ", @pokemon.save)
       end
     end
 
