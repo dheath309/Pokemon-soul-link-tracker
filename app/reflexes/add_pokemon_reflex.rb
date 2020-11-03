@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AddPokemonReflex < ApplicationReflex
+  include CableReady::Broadcaster
   # Add Reflex methods in this file.
   #
   # All Reflex instances expose the following properties:
@@ -22,21 +23,25 @@ class AddPokemonReflex < ApplicationReflex
   #
   # Learn more at: https://docs.stimulusreflex.com
 
-  def add
-    # If getting team id from the webpage, need to do some authentication (websocket connected to game id thing? session? (session may persist too long))
-    # so that users can't just add to random teams by changing the id. (uuid id?)
+  def add(room_id)
     team_id = element.dataset[:team].to_i
-    @team = Team.find(team_id)
-    # @team = @game.teams.find(team_id) # This would disallow people editing other teams outside their game (I think). Store game id in session?
-    # TODO Some sort of form for this really
-    @game = Game.order("created_at DESC").first
+    @game = Game.find_by(room_id: room_id)
 
+    # TODO Some sort of form for this really
+
+    channel_name = "game-#{room_id}"
     for team in @game.teams
       if team.pokemons.count < 6
         @pokemon = team.pokemons.create
         @pokemon.nickname = "Bulbasaur"
         @pokemon.pokedex_id = 1
         @pokemon.save
+        cable_ready[channel_name].insert_adjacent_html(
+          # TODO This likely needs a specific id (use team id on the selector?)
+          selector: ".pokemon",
+          html: ApplicationController.render(partial: "games/pokemon", locals: {pokemon: @pokemon})
+        )
+        cable_ready.broadcast
       end
     end
   end

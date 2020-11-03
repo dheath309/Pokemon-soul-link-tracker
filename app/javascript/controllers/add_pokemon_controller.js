@@ -23,7 +23,7 @@ export default class extends ApplicationController {
 
 	add(event) {
 		event.preventDefault();
-		this.stimulate("Add_Pokemon#add");
+		this.stimulate("Add_Pokemon#add", this.getRoomId());
 	}
   /* Reflex specific lifecycle methods.
    *
