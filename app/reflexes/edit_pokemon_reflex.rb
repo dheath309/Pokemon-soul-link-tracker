@@ -3,12 +3,12 @@
 class EditPokemonReflex < ApplicationReflex
   include CableReady::Broadcaster
 
-  def edit(name)
+  def edit(name, roomId)
     pokemon_id = element.dataset[:id].to_i
     # TODO some auth or something for this
     @pokemon = Pokemon.find(pokemon_id)
     @pokemon.update(nickname: name)
-    channel_name = "game-testroomid"
+    channel_name = "game-#{roomId}"
     # TODO If we have some way of getting the channel name like above, we can use it in cable_ready to broadcast to that roomid
     # Remember that the room ids should be random enough that it doesn't matter if someone guesses - could just pull the room id from the 
     # url on each reflex action and send it along

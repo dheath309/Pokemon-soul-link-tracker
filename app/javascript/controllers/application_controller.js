@@ -17,6 +17,10 @@ export default class extends Controller {
     StimulusReflex.register(this)
   }
 
+	getRoomId() {
+		return window.location.pathname.substr(1);
+	}
+
   /* Application-wide lifecycle methods
    *
    * Use these methods to handle lifecycle concerns for the entire application.
