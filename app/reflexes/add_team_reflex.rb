@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AddTeamReflex < ApplicationReflex
+  include CableReady::Broadcaster
   # Add Reflex methods in this file.
   #
   # All Reflex instances expose the following properties:
@@ -22,24 +23,27 @@ class AddTeamReflex < ApplicationReflex
   #
   # Learn more at: https://docs.stimulusreflex.com
 
-  def add
-    puts("ADDING TEAM NOW")
-    # Get room id for game (url? channel?)
-    # Add team to game
-    # TODO get game/room id from the stimulus controller or something
-    @game = Game.order("created_at DESC").first
+  def add(room_id)
+    @game = Game.find_by(room_id: room_id)
     @team = @game.teams.create
     # TODO Need to keep track of amount of pokemon added so that when adding a new team, it is the same amount as the others. Should probably keep track of in Game
     pokemon_count = @game.teams.first.pokemons.count
     
+    channel_name = "game-#{room_id}"
     for i in 0..pokemon_count
       if @team.pokemons.count < 6
         @pokemon = @team.pokemons.create
         @pokemon.nickname = "Bulbasaur"
         @pokemon.pokedex_id = 1
-        puts("Saved? ", @pokemon.save)
+        @pokemon.save
       end
     end
+    cable_ready[channel_name].insert_adjacent_html(
+      # TODO This likely needs a specific id (use team id on the selector?)
+      selector: ".pokemon-container",
+      html: GamesController.render(partial: "team", locals: {team: @team})
+    )
+    cable_ready.broadcast
 
   end
 

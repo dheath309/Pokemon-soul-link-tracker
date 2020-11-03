@@ -39,7 +39,7 @@ class AddPokemonReflex < ApplicationReflex
         cable_ready[channel_name].insert_adjacent_html(
           # TODO This likely needs a specific id (use team id on the selector?)
           selector: ".pokemon",
-          html: ApplicationController.render(partial: "games/pokemon", locals: {pokemon: @pokemon})
+          html: GamesController.render(partial: "pokemon", locals: {pokemon: @pokemon})
         )
         cable_ready.broadcast
       end
