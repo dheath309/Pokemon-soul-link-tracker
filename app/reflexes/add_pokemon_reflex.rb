@@ -24,7 +24,6 @@ class AddPokemonReflex < ApplicationReflex
   # Learn more at: https://docs.stimulusreflex.com
 
   def add(room_id)
-    team_id = element.dataset[:team].to_i
     @game = Game.find_by(room_id: room_id)
 
     # TODO Some sort of form for this really
@@ -36,13 +35,12 @@ class AddPokemonReflex < ApplicationReflex
         @pokemon.nickname = "Bulbasaur"
         @pokemon.pokedex_id = 1
         @pokemon.save
-        cable_ready[channel_name].insert_adjacent_html(
-          # TODO This likely needs a specific id (use team id on the selector?)
-          selector: ".pokemon",
-          html: GamesController.render(partial: "pokemon", locals: {pokemon: @pokemon})
-        )
-        cable_ready.broadcast
       end
+      cable_ready[channel_name].outer_html(
+        selector: "#team-#{team.id}",
+        html: GamesController.render(partial: "team", locals: {team: team})
+      )
+      cable_ready.broadcast
     end
   end
 

@@ -1,8 +1,5 @@
-<div class="team">
+<div id="team-<%= team.id %>" class="team">
   <% team %>
   Team <%= team.id %>
   <%= render "pokemons", pokemons: team.pokemons %>
-  <% if team.pokemons.count < 6 %>
-    <button data-controller="add-pokemon" data-action="add-pokemon#add" data-team="<%= team.id %>">Add pokemon</button>
-  <% end %>
 </div>

@@ -4,4 +4,7 @@
       <%= render "pokemon", pokemon: pokemon %>
     </div> 
   <% end %> 
+  <% if pokemons.count < 6 %>
+    <button data-controller="add-pokemon" data-action="add-pokemon#add">Add pokemon</button>
+  <% end %>
 </div>
