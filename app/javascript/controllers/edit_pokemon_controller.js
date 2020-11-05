@@ -22,10 +22,8 @@ export default class extends ApplicationController {
   }
 
 	edit(event) {
-		if (event.code === "Enter") {
-			const newName = this.context.scope.element.value;
-			this.stimulate("Edit_Pokemon#edit", newName, this.getRoomId());
-		}
+		const newName = this.context.scope.element.value;
+		this.stimulate("Edit_Pokemon#edit", newName, this.getRoomId());
 	}
 
 	editPokedexId(event) {
