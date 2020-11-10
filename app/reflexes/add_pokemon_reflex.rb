@@ -31,10 +31,7 @@ class AddPokemonReflex < ApplicationReflex
     channel_name = "game-#{room_id}"
     for team in @game.teams
       if team.pokemons.count < 6
-        @pokemon = team.pokemons.create
-        @pokemon.nickname = "Bulbasaur"
-        @pokemon.pokedex_id = 1
-        @pokemon.save
+        @pokemon = team.pokemons.create(nickname: "Bulbasaur", pokedex_id: 1)
       end
       cable_ready[channel_name].outer_html(
         selector: "#team-#{team.id}",
