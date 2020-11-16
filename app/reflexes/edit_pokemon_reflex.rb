@@ -21,16 +21,31 @@ class EditPokemonReflex < ApplicationReflex
     @pokemon = Pokemon.find(pokemon_id)
     # Check if pokemon is in the user's game
     @game = Game.find_by(room_id: room_id)
+    @all_pokemon = Rails.cache.read("all_pokemon")
     if @game.teams.find(@pokemon.team_id)
+      # TODO Store pokemon's pokedex name as well or something
       @pokemon.update(pokedex_id: new_pokedex_id)
       channel_name = "game-#{room_id}"
-      cable_ready[channel_name].set_value(
-        selector: "#pokemon-id-#{pokemon_id}",
-        value: "#{new_pokedex_id}"
+      cable_ready[channel_name].inner_html(
+        selector: "#pokemon-#{pokemon_id}-pokedex-id",
+        html: "#{@all_pokemon[new_pokedex_id - 1].pokemon_species.name}"
       )
       cable_ready.broadcast
     else
       # TODO return an error or something
+    end
+
+
+  end
+
+  def display_pokedex_id_edit(room_id) 
+    pokemon_id = element.dataset[:id].to_i
+    @pokemon = Pokemon.find(pokemon_id)
+    @game = Game.find_by(room_id: room_id)
+    channel_name = "game-#{room_id}"
+    if @game.teams.find(@pokemon.team_id)
+      @is_editing_pokemon = true
+      @pokemon_in_edit = pokemon_id
     end
 
   end

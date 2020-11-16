@@ -1,4 +1,10 @@
 <div>
   <label for="pokedex-nickname">Pokemon nickname: </label>
   <input id="pokemon-<%= pokemon.id %>" data-controller="edit-pokemon" data-action="change->edit-pokemon#edit" data-id="<%= pokemon.id %>" type=text name="pokedex-nickname" value="<%= pokemon.nickname %>"></input>
+  <button id="pokemon-<%= pokemon.id %>-button" data-controller="edit-pokemon" data-action="click->edit-pokemon#displayPokedexIdEdit" data-id="<%= pokemon.id %>">edit pokemon</button>
+  <span id="pokemon-<%= pokemon.id %>-pokedex-id"> <%= @all_pokemon[pokemon.pokedex_id - 1].pokemon_species.name %> </span> 
+
+  <% if @is_editing_pokemon && pokemon.id == @pokemon_in_edit %>
+    <%= render "pokemon_drop_down", pokemon_id: pokemon.id, pokedex_id: pokemon.pokedex_id %>
+  <% end %>
 </div>
