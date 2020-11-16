@@ -3,8 +3,9 @@ class GamesController < ApplicationController
 
   def show
     @game_id = params[:gameId]
-    @game = Game.find_or_create_by(room_id: @game_id)
+    @game = Game.includes(:teams).find_or_create_by(room_id: @game_id)
     # TODO Handle when a game is not created (too short room id for example)
+    #
 
     
     @all_pokemon = Rails.cache.read("all_pokemon")

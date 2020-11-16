@@ -1,0 +1,9 @@
+<div class="teams-container">
+  <% for team in teams do %>
+    <div id="team-<%= team.id %>" class="team">
+      <% team %>
+      Team <%= team.id %>
+    <%= render "pokemons", pokemons: team.pokemons %>
+    </div>
+  <% end %>
+</div>

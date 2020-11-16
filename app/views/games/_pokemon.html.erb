@@ -1,5 +1,4 @@
 <div>
   <label for="pokedex-nickname">Pokemon nickname: </label>
   <input id="pokemon-<%= pokemon.id %>" data-controller="edit-pokemon" data-action="change->edit-pokemon#edit" data-id="<%= pokemon.id %>" type=text name="pokedex-nickname" value="<%= pokemon.nickname %>"></input>
-<%= render "pokemon_drop_down", pokemon_id: pokemon.id, pokedex_id: pokemon.pokedex_id %>
 </div>

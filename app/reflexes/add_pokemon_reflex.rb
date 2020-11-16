@@ -24,21 +24,21 @@ class AddPokemonReflex < ApplicationReflex
   # Learn more at: https://docs.stimulusreflex.com
 
   def add(room_id)
-    @game = Game.find_by(room_id: room_id)
+    game = Game.includes(:teams).find_by(room_id: room_id)
 
     # TODO Some sort of form for this really
-
+    
     channel_name = "game-#{room_id}"
-    for team in @game.teams
+    game.teams.each do |team|
       if team.pokemons.count < 6
         @pokemon = team.pokemons.create(nickname: "Bulbasaur", pokedex_id: 1)
       end
+    end
       cable_ready[channel_name].outer_html(
-        selector: "#team-#{team.id}",
-        html: GamesController.render(partial: "team", locals: {team: team})
+        selector: ".teams-container",
+        html: GamesController.render(partial: "teams", locals: {teams: game.teams})
       )
       cable_ready.broadcast
-    end
   end
 
 end

@@ -2,8 +2,4 @@
 
 <%= @game.inspect %>
 
-<div class="teams-container">
-  <% for team in @game.teams do %>
-    <%= render "team", team: team %>
-  <% end %>
-</div>
+<%= render partial: "teams", locals: {teams: @game.teams} %>
