@@ -30,7 +30,7 @@ class AddTeamReflex < ApplicationReflex
     pokemon_count = @game.teams.first.pokemons.count
     
     channel_name = "game-#{room_id}"
-    for i in 0..pokemon_count
+    pokemon_count.times do
       if @team.pokemons.count < 6
         @pokemon = @team.pokemons.create
         @pokemon.nickname = "Bulbasaur"
@@ -40,7 +40,7 @@ class AddTeamReflex < ApplicationReflex
     end
     cable_ready[channel_name].insert_adjacent_html(
       # TODO This likely needs a specific id (use team id on the selector?)
-      selector: ".pokemon-container",
+      selector: ".teams-container",
       html: GamesController.render(partial: "team", locals: {team: @team})
     )
     cable_ready.broadcast
