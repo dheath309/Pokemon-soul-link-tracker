@@ -1,4 +1,5 @@
 <div class="pokemon-container">
+  <% pokemons = pokemons.order(:created_at) %>
   <% for pokemon in pokemons do %>
     <div class="pokemon">
       <%= render "pokemon", pokemon: pokemon %>
