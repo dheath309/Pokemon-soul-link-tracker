@@ -31,7 +31,7 @@ class AddPokemonReflex < ApplicationReflex
     channel_name = "game-#{room_id}"
     game.teams.each do |team|
       if team.pokemons.count < 6
-        @pokemon = team.pokemons.create(nickname: "Bulbasaur", pokedex_id: 1)
+        @pokemon = team.pokemons.create(nickname: "Bulbasaur", pokedex_id: 1, is_alive: true)
       end
     end
       cable_ready[channel_name].outer_html(

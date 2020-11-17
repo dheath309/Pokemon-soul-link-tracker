@@ -42,13 +42,31 @@ class EditPokemonReflex < ApplicationReflex
     pokemon_id = element.dataset[:id].to_i
     @pokemon = Pokemon.find(pokemon_id)
     @game = Game.find_by(room_id: room_id)
-    channel_name = "game-#{room_id}"
     if @game.teams.find(@pokemon.team_id)
       @is_editing_pokemon = true
       @pokemon_in_edit = pokemon_id
     end
 
   end
+
+  def toggle_alive(room_id)
+    pokemon_id = element.dataset[:id].to_i
+    @pokemon = Pokemon.find(pokemon_id)
+    @game = Game.find_by(room_id: room_id)
+    channel_name = "game-#{room_id}"
+    if @game.teams.find(@pokemon.team_id)
+      @pokemon.is_alive = !@pokemon.is_alive?
+      @pokemon.save
+      cable_ready[channel_name].inner_html(
+        selector: "#pokemon-#{pokemon_id}-is-alive",
+        html: "#{@pokemon.is_alive? ? "Alive" : "Dead"}"
+      )
+      # cable ready to remove the pokemon element from alive
+      # cable ready to add pokemon element to dead
+      cable_ready.broadcast
+    end
+  end
+
   # Add Reflex methods in this file.
   #
   # All Reflex instances expose the following properties:

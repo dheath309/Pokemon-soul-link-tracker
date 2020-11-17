@@ -35,6 +35,7 @@ class AddTeamReflex < ApplicationReflex
         @pokemon = @team.pokemons.create
         @pokemon.nickname = "Bulbasaur"
         @pokemon.pokedex_id = 1
+        @pokemon.is_alive = true
         @pokemon.save
       end
     end

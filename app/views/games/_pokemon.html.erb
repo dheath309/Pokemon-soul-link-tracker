@@ -13,4 +13,7 @@
   <% if @is_editing_pokemon && pokemon.id == @pokemon_in_edit %>
     <%= render "pokemon_drop_down", pokemon_id: pokemon.id, pokedex_id: pokemon.pokedex_id %>
   <% end %>
+
+  <button data-controller="edit-pokemon" data-action="click->edit-pokemon#toggleAlive" data-id="<%= pokemon.id %>">Toggle alive</button>
+  <span id="pokemon-<%= pokemon.id %>-is-alive"><%= pokemon.is_alive? ? "Alive" : "Dead" %></span>
 </div>
