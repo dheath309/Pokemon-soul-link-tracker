@@ -57,13 +57,23 @@ class EditPokemonReflex < ApplicationReflex
     if @game.teams.find(@pokemon.team_id)
       @pokemon.is_alive = !@pokemon.is_alive?
       @pokemon.save
-      cable_ready[channel_name].inner_html(
-        selector: "#pokemon-#{pokemon_id}-is-alive",
-        html: "#{@pokemon.is_alive? ? "Alive" : "Dead"}"
+
+      cable_ready[channel_name].remove(
+        selector: "#pokemon-#{@pokemon.id}-container"
       )
-      # cable ready to remove the pokemon element from alive
-      # cable ready to add pokemon element to dead
-      cable_ready.broadcast
+      if @pokemon.is_alive? 
+        cable_ready[channel_name].insert_adjacent_html(
+          selector: "#team-#{@pokemon.team_id} .pokemon-container",
+          html: GamesController.render(partial: "pokemon", locals: {pokemon: @pokemon})
+        )
+        cable_ready.broadcast
+      else
+        cable_ready[channel_name].insert_adjacent_html(
+          selector: "#team-#{@pokemon.team_id} .dead-pokemon-container",
+          html: GamesController.render(partial: "pokemon", locals: {pokemon: @pokemon})
+        )
+        cable_ready.broadcast
+      end
     end
   end
 

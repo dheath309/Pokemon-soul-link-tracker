@@ -1,4 +1,4 @@
-<div>
+<div id="pokemon-<%= pokemon.id %>-container">
   <label for="pokedex-nickname">Pokemon nickname: </label>
   <input id="pokemon-<%= pokemon.id %>" data-controller="edit-pokemon" data-action="change->edit-pokemon#edit" data-id="<%= pokemon.id %>" type=text name="pokedex-nickname" value="<%= pokemon.nickname %>"></input>
   <button id="pokemon-<%= pokemon.id %>-button" data-controller="edit-pokemon" data-action="click->edit-pokemon#displayPokedexIdEdit" data-id="<%= pokemon.id %>">edit pokemon</button>

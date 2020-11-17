@@ -1,11 +1,24 @@
 <div class="pokemon-container">
   <% pokemons = pokemons.order(:created_at) %>
   <% for pokemon in pokemons do %>
-    <div class="pokemon">
-      <%= render "pokemon", pokemon: pokemon %>
-    </div> 
+    <% if pokemon.is_alive? %>
+      <div class="pokemon">
+        <%= render "pokemon", pokemon: pokemon %>
+      </div> 
+    <% end %>
   <% end %> 
-  <% if pokemons.count < 6 %>
-    <button data-controller="add-pokemon" data-action="add-pokemon#add">Add pokemon</button>
-  <% end %>
+</div>
+<% if pokemons.count < 6 %>
+  <button data-controller="add-pokemon" data-action="add-pokemon#add">Add pokemon</button>
+<% end %>
+
+<div class="dead-pokemon-container">
+  Dead
+  <% for pokemon in pokemons do %>
+    <% unless pokemon.is_alive? %>
+      <div class="pokemon">
+        <%= render "pokemon", pokemon: pokemon %>
+      </div> 
+    <% end %>
+  <% end %> 
 </div>
