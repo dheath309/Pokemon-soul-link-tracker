@@ -58,22 +58,15 @@ class EditPokemonReflex < ApplicationReflex
       @pokemon.is_alive = !@pokemon.is_alive?
       @pokemon.save
 
-      cable_ready[channel_name].remove(
-        selector: "#pokemon-#{@pokemon.id}-container"
-      )
-      if @pokemon.is_alive? 
-        cable_ready[channel_name].insert_adjacent_html(
-          selector: "#team-#{@pokemon.team_id} .pokemon-container",
-          html: GamesController.render(partial: "pokemon", locals: {pokemon: @pokemon})
-        )
-        cable_ready.broadcast
-      else
-        cable_ready[channel_name].insert_adjacent_html(
-          selector: "#team-#{@pokemon.team_id} .dead-pokemon-container",
-          html: GamesController.render(partial: "pokemon", locals: {pokemon: @pokemon})
-        )
-        cable_ready.broadcast
+      @pokemon.linked_pokemon.each do |linked_pokemon|
+        linked_pokemon.is_alive = !linked_pokemon.is_alive?
+        linked_pokemon.save
       end
+
+      cable_ready[channel_name].morph(
+        selector: ".teams-container",
+        html: GamesController.render(partial: "teams", locals: {teams: @game.teams})
+      )
     end
   end
 
