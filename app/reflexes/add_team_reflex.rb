@@ -26,17 +26,18 @@ class AddTeamReflex < ApplicationReflex
   def add(room_id)
     @game = Game.find_by(room_id: room_id)
     @team = @game.teams.create
-    # TODO Need to keep track of amount of pokemon added so that when adding a new team, it is the same amount as the others. Should probably keep track of in Game
     pokemon_count = @game.teams.first.pokemons.count
     
     channel_name = "game-#{room_id}"
-    pokemon_count.times do
+    pokemon_count.times do |current_pokemon_index|
       if @team.pokemons.count < 6
-        @pokemon = @team.pokemons.create
-        @pokemon.nickname = "Bulbasaur"
-        @pokemon.pokedex_id = 1
-        @pokemon.is_alive = true
-        @pokemon.save
+        @pokemon = @team.pokemons.create(nickname: "Bulbasaur", pokedex_id: 1, is_alive: true)
+        @game.teams.each do |team| 
+          unless team == @team 
+            Link.create(pokemon1: team.pokemons[current_pokemon_index], pokemon2: @pokemon)
+            Link.create(pokemon1: @pokemon, pokemon2: team.pokemons[current_pokemon_index])
+          end
+        end
       end
     end
     cable_ready[channel_name].insert_adjacent_html(
