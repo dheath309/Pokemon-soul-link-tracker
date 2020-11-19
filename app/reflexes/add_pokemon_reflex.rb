@@ -28,17 +28,27 @@ class AddPokemonReflex < ApplicationReflex
 
     # TODO Some sort of form for this really
     
+    pokemons = []
     channel_name = "game-#{room_id}"
     game.teams.each do |team|
       if team.pokemons.count < 6
-        @pokemon = team.pokemons.create(nickname: "Bulbasaur", pokedex_id: 1, is_alive: true)
+        pokemon = team.pokemons.create(nickname: "Bulbasaur", pokedex_id: 1, is_alive: true)
+        pokemons.push(pokemon)
       end
     end
-      cable_ready[channel_name].outer_html(
-        selector: ".teams-container",
-        html: GamesController.render(partial: "teams", locals: {teams: game.teams})
-      )
-      cable_ready.broadcast
+
+    # TODO Possible optimization here if performance is bad
+    pokemons.each_with_index do |pokemon, current_pokemon|
+      (0..pokemons.length).each do |i|
+        link = Link.create(pokemon1: pokemon, pokemon2: pokemons[i]) unless i == current_pokemon 
+      end
+    end
+
+    cable_ready[channel_name].outer_html(
+      selector: ".teams-container",
+      html: GamesController.render(partial: "teams", locals: {teams: game.teams})
+    )
+    cable_ready.broadcast
   end
 
 end

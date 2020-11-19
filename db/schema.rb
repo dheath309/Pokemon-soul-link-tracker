@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_12_185740) do
+ActiveRecord::Schema.define(version: 2020_11_19_205133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 2020_10_12_185740) do
     t.string "room_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "links", force: :cascade do |t|
+    t.bigint "pokemon1_id", null: false
+    t.bigint "pokemon2_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["pokemon1_id"], name: "index_links_on_pokemon1_id"
+    t.index ["pokemon2_id"], name: "index_links_on_pokemon2_id"
   end
 
   create_table "pokemons", force: :cascade do |t|
@@ -38,6 +47,8 @@ ActiveRecord::Schema.define(version: 2020_10_12_185740) do
     t.index ["game_id"], name: "index_teams_on_game_id"
   end
 
+  add_foreign_key "links", "pokemons", column: "pokemon1_id"
+  add_foreign_key "links", "pokemons", column: "pokemon2_id"
   add_foreign_key "pokemons", "teams"
   add_foreign_key "teams", "games"
 end
