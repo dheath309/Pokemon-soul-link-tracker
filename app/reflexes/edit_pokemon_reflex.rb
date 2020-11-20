@@ -55,11 +55,12 @@ class EditPokemonReflex < ApplicationReflex
     @game = Game.find_by(room_id: room_id)
     channel_name = "game-#{room_id}"
     if @game.teams.find(@pokemon.team_id)
-      @pokemon.is_alive = !@pokemon.is_alive?
+      new_alive_state = !@pokemon.is_alive?
+      @pokemon.is_alive = new_alive_state
       @pokemon.save
 
       @pokemon.linked_pokemon.each do |linked_pokemon|
-        linked_pokemon.is_alive = !linked_pokemon.is_alive?
+        linked_pokemon.is_alive = new_alive_state
         linked_pokemon.save
       end
 
