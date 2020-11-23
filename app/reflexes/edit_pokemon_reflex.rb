@@ -26,9 +26,9 @@ class EditPokemonReflex < ApplicationReflex
       # TODO Store pokemon's pokedex name as well or something
       @pokemon.update(pokedex_id: new_pokedex_id)
       channel_name = "game-#{room_id}"
-      cable_ready[channel_name].inner_html(
-        selector: "#pokemon-#{pokemon_id}-pokedex-id",
-        html: "#{@all_pokemon[new_pokedex_id - 1].pokemon_species.name}"
+      cable_ready[channel_name].morph(
+        selector: "#pokemon-#{pokemon_id}-container",
+        html: GamesController.render(partial: "pokemon", locals: {pokemon: @pokemon})
       )
       cable_ready.broadcast
     else
