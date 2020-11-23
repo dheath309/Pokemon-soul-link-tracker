@@ -1,7 +1,7 @@
 <div class="pokemon-container">
   <% pokemons = pokemons.order(:created_at) %>
   <% pokemons.each_with_index do |pokemon, i|%>
-    <% if pokemon.is_alive? %>
+    <% if pokemon.is_alive? && !pokemon.is_boxed? %>
       <% i = i + 2 %>
           <div style="background-color: rgba(<%= (i + 3)* i * i * i %>, 255, 255)" class="pokemon">
         <%= render "pokemon", pokemon: pokemon %>
@@ -17,6 +17,16 @@
   Dead
   <% pokemons.each_with_index do |pokemon, i|%>
     <% unless pokemon.is_alive? %>
+      <% i = i + 2 %>
+      <div style="background-color: rgba(<%= (i + 3)* i * i * i %>, 255, 255)" class="pokemon">
+        <%= render "pokemon", pokemon: pokemon %>
+      </div> 
+    <% end %>
+  <% end %> 
+
+  Boxed
+  <% pokemons.each_with_index do |pokemon, i|%>
+    <% if pokemon.is_boxed? && pokemon.is_alive? %>
       <% i = i + 2 %>
       <div style="background-color: rgba(<%= (i + 3)* i * i * i %>, 255, 255)" class="pokemon">
         <%= render "pokemon", pokemon: pokemon %>

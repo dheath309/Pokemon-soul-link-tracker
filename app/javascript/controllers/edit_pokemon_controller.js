@@ -39,6 +39,10 @@ export default class extends ApplicationController {
 		this.stimulate("Edit_Pokemon#toggle_alive", this.getRoomId());
 	}
 
+	toggleBoxed(event) {
+		this.stimulate("Edit_Pokemon#toggle_boxed", this.getRoomId());
+	}
+
   /* Reflex specific lifecycle methods.
    *
    * For every method defined in your Reflex class, a matching set of lifecycle methods become available
