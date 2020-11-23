@@ -21,3 +21,18 @@
 	background-color: grey;
 	border: 5px solid red;
 }
+
+.pokemon {
+	display: flex;
+}
+
+.pokemon-inputs {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.pokemon-sprite {
+	margin-top: auto;
+	margin-bottom: auto;
+}
