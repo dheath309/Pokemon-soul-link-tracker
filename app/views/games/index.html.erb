@@ -1,9 +1,0 @@
-<button data-controller="add-team" data-action="add-team#add">Add player</button>
-
-<%= @game.inspect %>
-
-<div class="teams-container">
-  <% for team in @game.teams do %>
-    <%= render "team", team: team %>
-  <% end %>
-</div>
