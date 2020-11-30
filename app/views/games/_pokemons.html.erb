@@ -10,7 +10,7 @@
     <% end %>
   <% end %> 
 </div>
-<% if pokemons.count < 6 %>
+<% unless pokemons.count >= 100 %>
   <button data-controller="add-pokemon" data-action="add-pokemon#add">Add pokemon</button>
 <% end %>
 
