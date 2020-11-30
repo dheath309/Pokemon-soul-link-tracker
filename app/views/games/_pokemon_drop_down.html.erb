@@ -1,8 +1,7 @@
 <datalist id="pokemon-datalist">
     <% @all_pokemon.each_with_index do |pokemon, index| %>
-      <option value="<%= index + 1%>"
-      <%= "selected=true" unless pokedex_id != index + 1%>>
+      <option value="<%= index + 1%>">
       <%= pokemon.pokemon_species.name %></option>
     <% end %>
 </datalist>
-<input id="pokemon-id-<%= pokemon_id %>" autoComplete="on" list="pokemon-datalist" data-controller="edit-pokemon" data-action="change->edit-pokemon#editPokedexId" data-id="<%= pokemon_id %>"/> 
+<input id="pokemon-id-<%= pokemon_id %>" placeholder="Edit pokemon" autoComplete="on" list="pokemon-datalist" data-controller="edit-pokemon" data-action="change->edit-pokemon#editPokedexId" data-id="<%= pokemon_id %>"/> 
