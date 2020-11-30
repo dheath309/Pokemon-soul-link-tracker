@@ -27,7 +27,7 @@ export default class extends ApplicationController {
 	}
 
 	editPokedexId(event) {
-		const newId = event.target.selectedIndex + 1;
+		const newId = event.target.value
 		this.stimulate("Edit_Pokemon#edit_pokedex_id", newId, this.getRoomId());
 	}
 

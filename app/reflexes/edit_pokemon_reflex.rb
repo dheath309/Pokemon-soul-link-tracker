@@ -24,6 +24,7 @@ class EditPokemonReflex < ApplicationReflex
     @all_pokemon = Rails.cache.read("all_pokemon")
     if @game.teams.find(@pokemon.team_id)
       # TODO Store pokemon's pokedex name as well or something
+      # TODO Validate new pokedex id
       @pokemon.update(pokedex_id: new_pokedex_id)
       channel_name = "game-#{room_id}"
       cable_ready[channel_name].morph(
@@ -38,7 +39,7 @@ class EditPokemonReflex < ApplicationReflex
 
   end
 
-  def display_pokedex_id_edit(room_id) 
+  def display_pokedex_id_edit(room_id)
     pokemon_id = element.dataset[:id].to_i
     @pokemon = Pokemon.find(pokemon_id)
     @game = Game.find_by(room_id: room_id)
