@@ -20,7 +20,6 @@ export default class extends ApplicationController {
     super.connect()
     // add your code here, if applicable
   }
-
 	edit(event) {
 		const newName = this.context.scope.element.value;
 		this.stimulate("Edit_Pokemon#edit", newName, this.getRoomId());

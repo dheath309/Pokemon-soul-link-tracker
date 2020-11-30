@@ -14,6 +14,9 @@
   <% end %> 
 </div>
 
+<div>
+  <button data-controller="container-display" data-action="container-display#toggleDeadContainer">Toggle dead pokemon</button>
+  </div>
 <div class="dead-pokemon-container">
   Dead
   <% pokemons.each_with_index do |pokemon, i|%>
@@ -25,7 +28,11 @@
       </div> 
     <% end %>
   <% end %> 
-
+</div>
+<div>
+  <button data-controller="container-display" data-action="container-display#toggleBoxedContainer">Toggle boxed pokemon</button>
+  </div>
+<div class="boxed-pokemon-container">
   Boxed
   <% pokemons.each_with_index do |pokemon, i|%>
     <% if pokemon.is_boxed? && pokemon.is_alive? %>
