@@ -25,27 +25,29 @@ class AddTeamReflex < ApplicationReflex
 
   def add(room_id)
     @game = Game.find_by(room_id: room_id)
-    @team = @game.teams.create
-    pokemon_count = @game.teams.first.pokemons.count
-    
-    channel_name = "game-#{room_id}"
-    pokemon_count.times do |current_pokemon_index|
-      if @team.pokemons.count < 6
-        @pokemon = @team.pokemons.create(nickname: "Bulbasaur", pokedex_id: 1, is_alive: true)
-        @game.teams.each do |team| 
-          unless team == @team 
-            Link.create(pokemon1: team.pokemons[current_pokemon_index], pokemon2: @pokemon)
-            Link.create(pokemon1: @pokemon, pokemon2: team.pokemons[current_pokemon_index])
+    unless @game.teams.count >= 6
+      @team = @game.teams.create
+      pokemon_count = @game.teams.first.pokemons.count
+      
+      channel_name = "game-#{room_id}"
+      pokemon_count.times do |current_pokemon_index|
+        if @team.pokemons.count < 6
+          @pokemon = @team.pokemons.create(nickname: "Bulbasaur", pokedex_id: 1, is_alive: true)
+          @game.teams.each do |team| 
+            unless team == @team 
+              Link.create(pokemon1: team.pokemons[current_pokemon_index], pokemon2: @pokemon)
+              Link.create(pokemon1: @pokemon, pokemon2: team.pokemons[current_pokemon_index])
+            end
           end
         end
       end
+      cable_ready[channel_name].insert_adjacent_html(
+        # TODO This likely needs a specific id (use team id on the selector?)
+        selector: ".teams-container",
+        html: GamesController.render(partial: "team", locals: {team: @team})
+      )
+      cable_ready.broadcast
     end
-    cable_ready[channel_name].insert_adjacent_html(
-      # TODO This likely needs a specific id (use team id on the selector?)
-      selector: ".teams-container",
-      html: GamesController.render(partial: "team", locals: {team: @team})
-    )
-    cable_ready.broadcast
 
   end
 

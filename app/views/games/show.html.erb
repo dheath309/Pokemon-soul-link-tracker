@@ -1,4 +1,6 @@
-<button data-controller="add-team" data-action="add-team#add">Add player</button>
+<% unless @game.teams.count >= 6 %>
+  <button data-controller="add-team" data-action="add-team#add">Add player</button>
+<% end %>
 
 <%= @game.inspect %>
 
