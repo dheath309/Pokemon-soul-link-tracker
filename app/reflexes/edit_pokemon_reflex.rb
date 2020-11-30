@@ -7,13 +7,16 @@ class EditPokemonReflex < ApplicationReflex
     pokemon_id = element.dataset[:id].to_i
     # TODO some auth or something for this
     @pokemon = Pokemon.find(pokemon_id)
-    @pokemon.update(nickname: name)
-    channel_name = "game-#{room_id}"
-    cable_ready[channel_name].set_value(
-      selector: "#pokemon-#{pokemon_id}",
-      value: "#{name}"
-    )
-    cable_ready.broadcast
+    @game = Game.find_by(room_id: room_id)
+    if @game.teams.find(@pokemon.team_id)
+      @pokemon.update(nickname: name)
+      channel_name = "game-#{room_id}"
+      cable_ready[channel_name].set_value(
+        selector: "#pokemon-#{pokemon_id}",
+        value: "#{name}"
+      )
+      cable_ready.broadcast
+    end
   end
 
   def edit_pokedex_id(new_pokedex_id, room_id)
