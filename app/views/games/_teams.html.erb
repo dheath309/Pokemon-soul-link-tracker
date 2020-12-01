@@ -1,4 +1,5 @@
 <div class="teams-container">
+  <% teams = teams.order(:created_at) %>
   <% teams.each_with_index do |team, i| %>
     <div id="team-<%= team.id %>" class="team">
       <% team %>
