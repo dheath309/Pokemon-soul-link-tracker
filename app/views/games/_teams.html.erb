@@ -1,8 +1,8 @@
 <div class="teams-container">
-  <% for team in teams do %>
+  <% teams.each_with_index do |team, i| %>
     <div id="team-<%= team.id %>" class="team">
       <% team %>
-      Team <%= team.id %>
+      Team <%= i + 1 %>
     <%= render "pokemons", pokemons: team.pokemons %>
     </div>
   <% end %>
