@@ -17,9 +17,9 @@
       <%= render "pokemon_drop_down", pokemon_id: pokemon.id, pokedex_id: pokemon.pokedex_id %>
     <% end %>
 
-    <button data-controller="edit-pokemon" data-action="click->edit-pokemon#toggleAlive" data-id="<%= pokemon.id %>">Toggle alive</button>
+    <button data-controller="edit-pokemon" data-action="click->edit-pokemon#toggleAlive" data-id="<%= pokemon.id %>"><%= pokemon.is_alive? ? "Mark as dead" : "Mark as alive" %></button>
     <span id="pokemon-<%= pokemon.id %>-is-alive"><%= pokemon.is_alive? ? "Alive" : "Dead" %></span>
-    <button data-controller="edit-pokemon" data-action="click->edit-pokemon#toggleBoxed" data-id="<%= pokemon.id %>">Toggle boxed</button>
+    <button data-controller="edit-pokemon" data-action="click->edit-pokemon#toggleBoxed" data-id="<%= pokemon.id %>"><%= pokemon.is_boxed? ? "Remove from box" : "Send to box" %></button>
     <span id="pokemon-<%= pokemon.id %>-is-boxed"><%= pokemon.is_boxed? ? "Boxed" : "Not boxed" %></span>
   </div>
 </div>
