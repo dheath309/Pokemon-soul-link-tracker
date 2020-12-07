@@ -1,6 +1,6 @@
 <div class="pokemon-container">
 <% unless pokemons.count >= 100 %>
-  <button data-controller="add-pokemon" data-action="add-pokemon#add">Add pokemon</button>
+  <button id="team-<%= team_id %>-add-button" data-controller="add-pokemon" data-action="add-pokemon#add">Add pokemon</button>
 <% end %>
   <% pokemons = pokemons.order(:created_at) %>
   <% pokemons.each_with_index do |pokemon, i|%>
