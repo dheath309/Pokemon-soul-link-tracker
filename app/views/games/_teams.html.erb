@@ -2,9 +2,7 @@
   <% teams = teams.order(:created_at) %>
   <% teams.each_with_index do |team, i| %>
     <div id="team-<%= team.id %>" class="team">
-      <% team %>
-      Team <%= i + 1 %>
-    <%= render "pokemons", pokemons: team.pokemons, team_id: team.id %>
+      <%= render "team", team: team, i: i %>
     </div>
   <% end %>
 </div>

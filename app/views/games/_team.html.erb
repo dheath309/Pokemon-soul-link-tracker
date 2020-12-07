@@ -1,5 +1,5 @@
 <div id="team-<%= team.id %>" class="team">
-  <% team %>
-  Team <%= team.id %>
-  <%= render "pokemons", pokemons: team.pokemons %>
+    <% team %>
+    Team <%= i + 1 %>
+  <%= render "pokemons", pokemons: team.pokemons, team_id: team.id %>
 </div>

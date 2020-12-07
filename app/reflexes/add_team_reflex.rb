@@ -25,7 +25,8 @@ class AddTeamReflex < ApplicationReflex
 
   def add(room_id)
     @game = Game.find_by(room_id: room_id)
-    unless @game.teams.count >= 6
+    teams_count = @game.teams.count
+    unless teams_count >= 6
       @team = @game.teams.create
       pokemon_count = @game.teams.first.pokemons.count
       
@@ -44,7 +45,7 @@ class AddTeamReflex < ApplicationReflex
       cable_ready[channel_name].insert_adjacent_html(
         # TODO This likely needs a specific id (use team id on the selector?)
         selector: ".teams-container",
-        html: GamesController.render(partial: "team", locals: {team: @team})
+        html: GamesController.render(partial: "team", locals: {team: @team, i: teams_count})
       )
       cable_ready.broadcast
     end
