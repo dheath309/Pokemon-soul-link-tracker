@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_23_175307) do
+ActiveRecord::Schema.define(version: 2020_12_07_223408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(version: 2020_11_23_175307) do
     t.index ["game_id"], name: "index_teams_on_game_id"
   end
 
-  add_foreign_key "links", "pokemons", column: "pokemon1_id"
-  add_foreign_key "links", "pokemons", column: "pokemon2_id"
-  add_foreign_key "pokemons", "teams"
-  add_foreign_key "teams", "games"
+  add_foreign_key "links", "pokemons", column: "pokemon1_id", on_delete: :cascade
+  add_foreign_key "links", "pokemons", column: "pokemon2_id", on_delete: :cascade
+  add_foreign_key "pokemons", "teams", on_delete: :cascade
+  add_foreign_key "teams", "games", on_delete: :cascade
 end
