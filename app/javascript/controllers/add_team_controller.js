@@ -23,6 +23,7 @@ export default class extends ApplicationController {
 
 	add(event) {
 		event.preventDefault();
+		event.target.disabled = true;
 		this.stimulate("Add_Team#add", this.getRoomId());
 	}
   /* Reflex specific lifecycle methods.
