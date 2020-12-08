@@ -35,12 +35,13 @@ export default class extends ApplicationController {
 	}
 
 	toggleAlive(event) {
-		event.originalTarget.disabled = true;
+		console.log(event);
+		event.target.disabled = true;
 		this.stimulate("Edit_Pokemon#toggle_alive", this.getRoomId());
 	}
 
 	toggleBoxed(event) {
-		event.originalTarget.disabled = true;
+		event.target.disabled = true;
 		this.stimulate("Edit_Pokemon#toggle_boxed", this.getRoomId());
 	}
 
