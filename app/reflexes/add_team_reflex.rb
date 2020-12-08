@@ -33,11 +33,18 @@ class AddTeamReflex < ApplicationReflex
       channel_name = "game-#{room_id}"
       pokemon_count.times do |current_pokemon_index|
         unless @team.pokemons.count >= 100
-          @pokemon = @team.pokemons.create(nickname: "Bulbasaur", pokedex_id: 1, is_alive: true)
+          @pokemon = @team.pokemons.new(nickname: "Bulbasaur", pokedex_id: 1)
+          @pokemon_status_already_set = false
           @game.teams.each do |team| 
             unless team == @team 
-              Link.create(pokemon1: team.pokemons[current_pokemon_index], pokemon2: @pokemon)
-              Link.create(pokemon1: @pokemon, pokemon2: team.pokemons[current_pokemon_index])
+              temp_pokemon = team.pokemons[current_pokemon_index]
+                unless @pokemon_status_already_set
+                  @pokemon.is_alive = temp_pokemon.is_alive?
+                  @pokemon.is_boxed = temp_pokemon.is_boxed?
+                  @pokemon_status_already_set = true
+                end
+                Link.create(pokemon1: temp_pokemon, pokemon2: @pokemon)
+                Link.create(pokemon1: @pokemon, pokemon2: temp_pokemon)
             end
           end
         end
