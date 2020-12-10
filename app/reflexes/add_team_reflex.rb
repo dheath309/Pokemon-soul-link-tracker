@@ -37,7 +37,7 @@ class AddTeamReflex < ApplicationReflex
           @pokemon_status_already_set = false
           @game.teams.each do |team| 
             unless team == @team 
-              temp_pokemon = team.pokemons[current_pokemon_index]
+              temp_pokemon = team.pokemons.order(:created_at)[current_pokemon_index]
                 unless @pokemon_status_already_set
                   @pokemon.is_alive = temp_pokemon.is_alive?
                   @pokemon.is_boxed = temp_pokemon.is_boxed?
