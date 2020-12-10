@@ -1,6 +1,12 @@
-
 <% unless @game.teams.count >= 6 %>
   <button class="add-player-button" data-controller="add-team" data-action="add-team#add">Add player</button>
+<% end %>
+
+<% if @game.teams.count == 0 %>
+  Real time pokemon soul link tracker for up to 6 teams.
+  A shared view between all players to help keep track of what pokemon are linked, what pokemon are dead, and what pokemon are boxed.
+  Get started by givng each player the above link and clicking the add player button.
+  Maximum of 100 pokemon in a game.
 <% end %>
 
 <%= render partial: "teams", locals: {teams: @game.teams} %>
