@@ -6,7 +6,7 @@ class Game < ApplicationRecord
   def create_slug
     characters = Array("A".."Z") + Array("a".."z") + Array("0".."9")
     str = ""
-    for i in 0..7 
+    for i in 0..7
       str += characters.sample
     end
     return str

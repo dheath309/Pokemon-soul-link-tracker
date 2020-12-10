@@ -1,6 +1,12 @@
 // Place all the styles related to the Games controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.add-player-button {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 20%;
+}
 
 .teams-container {
 	display: flex;

@@ -1,7 +1,6 @@
-<% unless @game.teams.count >= 6 %>
-  <button data-controller="add-team" data-action="add-team#add">Add player</button>
-<% end %>
 
-<%= @game.inspect %>
+<% unless @game.teams.count >= 6 %>
+  <button class="add-player-button" data-controller="add-team" data-action="add-team#add">Add player</button>
+<% end %>
 
 <%= render partial: "teams", locals: {teams: @game.teams} %>
