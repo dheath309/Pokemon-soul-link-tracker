@@ -14,33 +14,38 @@
   <% end %> 
 </div>
 
-<div>
-  <button data-controller="container-display" data-action="container-display#toggleDeadContainer">Toggle dead pokemon</button>
+<div class="dead-container">
+  <div class="container-toggle">
+    Dead
+    <button data-controller="container-display" data-action="container-display#toggleDeadContainer">Toggle dead pokemon</button>
   </div>
-<div class="dead-pokemon-container">
-  Dead
-  <% pokemons.each_with_index do |pokemon, i|%>
-    <% unless pokemon.is_alive? %>
-      <% srand(i) %>
-      <% colour = "%06x" % (rand * 0xffffff) %>
-      <div style="background-color: #<%=colour%>" class="pokemon">
-        <%= render "pokemon", pokemon: pokemon %>
-      </div> 
-    <% end %>
-  <% end %> 
+  <div class="dead-pokemon-container">
+    <% pokemons.each_with_index do |pokemon, i|%>
+      <% unless pokemon.is_alive? %>
+        <% srand(i) %>
+        <% colour = "%06x" % (rand * 0xffffff) %>
+        <div style="background-color: #<%=colour%>" class="pokemon">
+          <%= render "pokemon", pokemon: pokemon %>
+        </div> 
+      <% end %>
+    <% end %> 
+  </div>
 </div>
-<div>
-  <button data-controller="container-display" data-action="container-display#toggleBoxedContainer">Toggle boxed pokemon</button>
+
+<div class="boxed-container">
+  <div class="container-toggle">
+    Boxed
+    <button data-controller="container-display" data-action="container-display#toggleBoxedContainer">Toggle boxed pokemon</button>
   </div>
-<div class="boxed-pokemon-container">
-  Boxed
-  <% pokemons.each_with_index do |pokemon, i|%>
-    <% if pokemon.is_boxed? && pokemon.is_alive? %>
-      <% srand(i) %>
-      <% colour = "%06x" % (rand * 0xffffff) %>
-      <div style="background-color: #<%=colour%>" class="pokemon">
-        <%= render "pokemon", pokemon: pokemon %>
-      </div> 
-    <% end %>
-  <% end %> 
+  <div class="boxed-pokemon-container">
+    <% pokemons.each_with_index do |pokemon, i|%>
+      <% if pokemon.is_boxed? && pokemon.is_alive? %>
+        <% srand(i) %>
+        <% colour = "%06x" % (rand * 0xffffff) %>
+        <div style="background-color: #<%=colour%>" class="pokemon">
+          <%= render "pokemon", pokemon: pokemon %>
+        </div> 
+      <% end %>
+    <% end %> 
+  </div>
 </div>
