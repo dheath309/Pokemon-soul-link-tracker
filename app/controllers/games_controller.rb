@@ -11,7 +11,7 @@ class GamesController < ApplicationController
     @game_id = params[:gameId]
     if @game_id.length < 7
       # TODO game id too short, error page
-      return
+      render file: "#{Rails.root}/public/game_id_too_short.html", status: 404
     end
     @game = Game.find_or_create_by(room_id: @game_id)
     # TODO Handle when a game is not created (too short room id for example)
