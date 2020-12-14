@@ -3,10 +3,12 @@
 <% end %>
 
 <% if @game.teams.count == 0 %>
-  Real time pokemon soul link tracker for up to 6 teams.
-  A shared view between all players to help keep track of what pokemon are linked, what pokemon are dead, and what pokemon are boxed.
-  Get started by givng each player the above link and clicking the add player button.
-  Maximum of 100 pokemon in a game.
+  <div class="info">
+    <p>Real time pokemon soul link tracker for up to 6 teams.</p>
+    <p>A shared view between all players to help keep track of what pokemon are linked, what pokemon are dead, and what pokemon are boxed.</p>
+    <p>Get started by givng each player the above link and clicking the add player button.<p>
+    <p>Maximum of 100 pokemon in a game.</p>
+  </div>
 <% end %>
 
 <%= render partial: "teams", locals: {teams: @game.teams} %>
