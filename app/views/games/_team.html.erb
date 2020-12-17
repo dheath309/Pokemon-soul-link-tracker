@@ -1,5 +1,6 @@
 <div id="team-<%= team.id %>" class="team">
     <% team %>
-    Team <%= i + 1 %>
+    <label for="team-name">Team name: </label>
+    <input id="team-<%= team.id %>-name" data-controller="edit-team" data-action="change->edit-team#editName" data-id="<%= team.id %>" type=text placeholder="Team <%= i + 1 %>" name="team-name" value="<%= team.name %>"></input>
   <%= render "pokemons", pokemons: team.pokemons, team_id: team.id %>
 </div>
