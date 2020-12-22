@@ -54,6 +54,9 @@ class AddTeamReflex < ApplicationReflex
         selector: ".teams-container",
         html: GamesController.render(partial: "team", locals: {team: @team, i: teams_count})
       )
+      cable_ready[channel_name].remove(
+        selector: ".info"
+      )
       cable_ready.broadcast
     end
 

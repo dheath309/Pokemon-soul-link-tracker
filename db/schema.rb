@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2020_12_17_171518) do
     t.string "room_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["room_id"], name: "index_games_on_room_id", unique: true
   end
 
   create_table "links", force: :cascade do |t|
@@ -33,7 +34,7 @@ ActiveRecord::Schema.define(version: 2020_12_17_171518) do
   create_table "pokemons", force: :cascade do |t|
     t.string "nickname", default: "Bulbasaur", null: false
     t.integer "pokedex_id", default: 1, null: false
-    t.boolean "is_alive", default: false, null: false
+    t.boolean "is_alive", default: true, null: false
     t.bigint "team_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
