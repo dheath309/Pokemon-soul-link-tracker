@@ -97,6 +97,24 @@ class EditPokemonReflex < ApplicationReflex
     end
   end
 
+  def delete_pokemon(room_id)
+    pokemon_id = element.dataset[:id].to_i
+    @pokemon = Pokemon.find(pokemon_id)
+    @game = Game.find_by(room_id: room_id)
+    channel_name = "game-#{room_id}"
+    if @game.teams.find(@pokemon.team_id)
+      @pokemon.linked_pokemon.each do |linked_pokemon|
+        linked_pokemon.destroy()
+      end
+      @pokemon.destroy()
+    end
+      cable_ready[channel_name].morph(
+        selector: ".teams-container",
+        html: GamesController.render(partial: "teams", locals: {teams: @game.teams})
+      )
+
+  end
+
   # Add Reflex methods in this file.
   #
   # All Reflex instances expose the following properties:

@@ -33,7 +33,7 @@ class AddTeamReflex < ApplicationReflex
       channel_name = "game-#{room_id}"
       pokemon_count.times do |current_pokemon_index|
         unless @team.pokemons.count >= 100
-          @pokemon = @team.pokemons.new(nickname: "Bulbasaur", pokedex_id: 1)
+          @pokemon = @team.pokemons.new(nickname: "", pokedex_id: 1)
           @pokemon_status_already_set = false
           @game.teams.each do |team| 
             unless team == @team 

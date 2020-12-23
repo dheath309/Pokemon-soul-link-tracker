@@ -32,7 +32,7 @@ class AddPokemonReflex < ApplicationReflex
     channel_name = "game-#{room_id}"
     @game.teams.each do |team|
       unless team.pokemons.count >= 100
-        pokemon = team.pokemons.create(nickname: "Bulbasaur", pokedex_id: 1, is_alive: true)
+        pokemon = team.pokemons.create(nickname: "", pokedex_id: 1, is_alive: true)
         pokemons.push(pokemon)
       end
     end
